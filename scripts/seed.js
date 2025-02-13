@@ -10,21 +10,43 @@ const __dirname = path.dirname(__filename);
 const dbConfigPath = path.join(__dirname, '../database.yaml');
 const dbConfig = yaml.load(fs.readFileSync(dbConfigPath, 'utf8'));
 
-const {
-  'sqlite_path': sqlitePath,
-} = dbConfig;
+const { sqlite_path: sqlitePath } = dbConfig;
 
 const db = new sqlite3.Database(sqlitePath);
 
 const employees = [
   {
-    full_name: 'John Doe'
+    full_name: 'John Doe',
+    email: 'johndoe@me.com',
+    phone_number: '123-456-7890',
+    date_of_birth: '1990-01-01',
+    job_title: 'Software Engineer',
+    department: 'Development',
+    salary: 50000,
+    start_date: '2022-01-01',
+    end_date: '2023-01-01',
   },
   {
-    full_name: 'Jane Smith'
+    full_name: 'Jane Smith',
+    email: 'janesmith@me.com',
+    phone_number: '987-654-3210',
+    date_of_birth: '1995-05-05',
+    job_title: 'Data Analyst',
+    department: 'Analytics',
+    salary: 60000,
+    start_date: '2022-02-01',
+    end_date: '2023-02-01',
   },
   {
-    full_name: 'Alice Johnson'
+    full_name: 'Alice Johnson',
+    email: 'alicejohnson@me.com',
+    phone_number: '555-555-5555',
+    date_of_birth: '1988-08-08',
+    job_title: 'Product Manager',
+    department: 'Marketing',
+    salary: 70000,
+    start_date: '2022-03-01',
+    end_date: '2023-03-01',
   },
 ];
 
@@ -46,14 +68,17 @@ const timesheets = [
   },
 ];
 
-
 const insertData = (table, data) => {
   const columns = Object.keys(data[0]).join(', ');
-  const placeholders = Object.keys(data[0]).map(() => '?').join(', ');
+  const placeholders = Object.keys(data[0])
+    .map(() => '?')
+    .join(', ');
 
-  const insertStmt = db.prepare(`INSERT INTO ${table} (${columns}) VALUES (${placeholders})`);
+  const insertStmt = db.prepare(
+    `INSERT INTO ${table} (${columns}) VALUES (${placeholders})`
+  );
 
-  data.forEach(row => {
+  data.forEach((row) => {
     insertStmt.run(Object.values(row));
   });
 
@@ -65,11 +90,10 @@ db.serialize(() => {
   insertData('timesheets', timesheets);
 });
 
-db.close(err => {
+db.close((err) => {
   if (err) {
     console.error(err.message);
   } else {
     console.log('Database seeded successfully.');
   }
 });
-
