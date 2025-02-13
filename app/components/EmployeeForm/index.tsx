@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form } from 'react-router';
 
-const EmployeeForm = () => {
+const EmployeeForm = ({ title }: { title: string }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
@@ -65,15 +65,28 @@ const EmployeeForm = () => {
       return;
     }
 
+    console.log('test');
+
+    //
+
     (e.target as HTMLFormElement).submit();
   };
 
   return (
     <Form
       method='post'
-      className='flex flex-col mt-6 mb-6 p-[25px] max-w-[550px]  shadow-lg ml-auto mr-auto'
+      className='flex flex-col mt-6 mb-6 p-[25px] max-w-[550px] shadow-lg ml-auto mr-auto'
       onSubmit={(e) => handleSubmit(e)}
     >
+      <h1 className='text-2xl font-bold text-center'>{title}</h1>
+
+      <a
+        className='w-fit mt-8  h-[40px] text-white bg-orange-500 rounded-md flex flex-row justify-between items-center px-[15px] py-[8px]'
+        onClick={() => window.history.back()}
+      >
+        {'< Back'}
+      </a>
+
       <div className='mt-4 flex flex-row justify-between items-center'>
         <label htmlFor='full_name' className='mr-2 flex-1'>
           Full Name*

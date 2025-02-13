@@ -39,11 +39,9 @@ export const action: ActionFunction = async ({ request }) => {
 export default function NewEmployeePage() {
   return (
     <div>
-      <h1>Create New Employee</h1>
+      <EmployeeForm title='Create New Employee' />
 
-      <EmployeeForm />
-
-      <hr />
+      {/* <hr /> */}
       <ul>
         <li>
           <a href='/employees'>Employees</a>
