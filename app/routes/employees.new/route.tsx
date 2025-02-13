@@ -39,7 +39,12 @@ export const action: ActionFunction = async ({ request }) => {
 export default function NewEmployeePage() {
   return (
     <div>
-      <EmployeeForm title='Create New Employee' />
+      <EmployeeForm
+        title='Create New Employee'
+        formData={{
+          full_name: 'Ali',
+        }}
+      />
 
       {/* <hr /> */}
       <ul>

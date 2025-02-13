@@ -1,7 +1,13 @@
 import React from 'react';
 import { Form } from 'react-router';
 
-const EmployeeForm = ({ title }: { title: string }) => {
+const EmployeeForm = ({
+  title,
+  formData,
+}: {
+  title: string;
+  formData?: any;
+}) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
@@ -96,6 +102,7 @@ const EmployeeForm = ({ title }: { title: string }) => {
           name='full_name'
           id='full_name'
           className='flex-1 py-[5px] px-[10px] rounded-sm'
+          defaultValue={formData?.full_name}
         />
       </div>
 
@@ -108,6 +115,7 @@ const EmployeeForm = ({ title }: { title: string }) => {
           name='email'
           id='email'
           className='flex-1 py-[5px] px-[10px] rounded-sm'
+          defaultValue={formData?.email}
         />
       </div>
 
@@ -120,6 +128,7 @@ const EmployeeForm = ({ title }: { title: string }) => {
           name='phone_number'
           id='phone_number'
           className='flex-1 py-[5px] px-[10px] rounded-sm'
+          defaultValue={formData?.phone_number}
         />
       </div>
       <div className='mt-4 flex flex-row justify-between items-center'>
@@ -131,6 +140,7 @@ const EmployeeForm = ({ title }: { title: string }) => {
           name='date_of_birth'
           id='date_of_birth'
           className='flex-1 py-[5px] px-[10px] rounded-sm'
+          defaultValue={formData?.date_of_birth}
         />
       </div>
 
@@ -143,6 +153,7 @@ const EmployeeForm = ({ title }: { title: string }) => {
           name='job_title'
           id='job_title'
           className='flex-1 py-[5px] px-[10px] rounded-sm'
+          defaultValue={formData?.job_title}
         />
       </div>
 
@@ -155,6 +166,7 @@ const EmployeeForm = ({ title }: { title: string }) => {
           name='department'
           id='department'
           className='flex-1 py-[5px] px-[10px] rounded-sm'
+          defaultValue={formData?.department}
         />
       </div>
 
@@ -167,6 +179,7 @@ const EmployeeForm = ({ title }: { title: string }) => {
           name='salary'
           id='salary'
           className='flex-1 py-[5px] px-[10px] rounded-sm'
+          defaultValue={formData?.salary}
         />
       </div>
 
@@ -179,6 +192,7 @@ const EmployeeForm = ({ title }: { title: string }) => {
           name='start_date'
           id='start_date'
           className='flex-1 py-[5px] px-[10px] rounded-sm'
+          defaultValue={formData?.start_date}
         />
       </div>
 
@@ -191,6 +205,7 @@ const EmployeeForm = ({ title }: { title: string }) => {
           name='end_date'
           id='end_date'
           className='flex-1 py-[5px] px-[10px] rounded-sm'
+          defaultValue={formData?.end_date}
         />
       </div>
 
