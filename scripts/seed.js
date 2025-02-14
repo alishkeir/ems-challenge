@@ -24,7 +24,7 @@ const employees = [
     department: 'Development',
     salary: 50000,
     start_date: '2022-01-01',
-    end_date: '2023-01-01',
+    
   },
   {
     full_name: 'Jane Smith',
@@ -35,7 +35,6 @@ const employees = [
     department: 'Analytics',
     salary: 60000,
     start_date: '2022-02-01',
-    end_date: '2023-02-01',
   },
   {
     full_name: 'Alice Johnson',
@@ -46,7 +45,6 @@ const employees = [
     department: 'Marketing',
     salary: 70000,
     start_date: '2022-03-01',
-    end_date: '2023-03-01',
   },
 ];
 
