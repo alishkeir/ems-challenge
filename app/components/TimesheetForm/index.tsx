@@ -112,6 +112,7 @@ const TimesheetForm = ({ employees, timesheet, title }: any) => {
             id='employee_id'
             className='py-[5px] px-[10px] rounded-sm w-[60%] border'
             required
+            defaultValue={timesheet?.employee_id || ''}
           >
             {sortedEmployees.map((employee: any) => (
               <option key={employee.id} value={employee.id}>
@@ -127,6 +128,14 @@ const TimesheetForm = ({ employees, timesheet, title }: any) => {
         >
           {timesheet?.id ? 'Update' : 'Create'}
         </button>
+        {timesheet && (
+          <a
+            href={`/employees/${timesheet.employee_id}`}
+            className='w-40 mt-2  mx-auto h-[40px] text-white bg-lime-500 rounded-md flex items-center justify-center'
+          >
+            View Employee
+          </a>
+        )}
       </Form>
     </div>
   );
