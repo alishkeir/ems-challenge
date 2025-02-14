@@ -33,13 +33,17 @@ export default function TimesheetsPage() {
     return a.full_name.localeCompare(b.full_name);
   });
 
-  console.log(employees);
+  //   pagination and searching timesheets
 
+  // default states
   const [search, setSearch] = useState('');
   const [selectedEmployee, setSelectedEmployee] = useState<string>('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [tableView, setTableView] = useState(true);
+
   const itemsPerPage = 5;
 
+  // search filtering by employee name (ID) and timesheet title
   const filteredTimesheets = timesheetsAndEmployees.filter((timesheet: any) => {
     const matchesSearch = timesheet.title
       .toLowerCase()
@@ -50,12 +54,15 @@ export default function TimesheetsPage() {
     return matchesSearch && matchesEmployee;
   });
 
-  const totalPages = Math.ceil(filteredTimesheets.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredTimesheets.length / itemsPerPage); // get total possible page count
+
+  // limit timesheets count per page
   const currentTimesheets = filteredTimesheets.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
+  // functions
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
     setCurrentPage(1);
@@ -70,11 +77,10 @@ export default function TimesheetsPage() {
     setCurrentPage(1);
   };
 
-  console.log(timesheetsAndEmployees);
-  const [tableView, setTableView] = useState(true);
-
+  // calendar configuration
   const eventsService = useState(() => createEventsServicePlugin())[0];
 
+  // fornmatting the date to work with the calendar
   function formatDate(dateString: any) {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -83,6 +89,7 @@ export default function TimesheetsPage() {
     return `${year}-${month}-${day}`;
   }
 
+  // remapping the timesheet object keys to wortk with the calendar
   const events = timesheetsAndEmployees.map((item: any) => ({
     id: String(item.id),
     title: item.title,
@@ -90,6 +97,7 @@ export default function TimesheetsPage() {
     end: formatDate(item.end_time),
   }));
 
+  // initializing the calendar
   const calendar = useCalendarApp({
     views: [
       createViewDay(),
@@ -101,6 +109,7 @@ export default function TimesheetsPage() {
     plugins: [eventsService],
   });
 
+  // get all calendar events (timesheets)
   useEffect(() => {
     eventsService.getAll();
   }, []);

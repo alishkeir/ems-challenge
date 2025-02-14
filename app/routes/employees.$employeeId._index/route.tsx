@@ -29,6 +29,7 @@ export const action: ActionFunction = async ({ request }) => {
   let imagePath = '';
   let docPath = '';
 
+  // check if an image is uploaded and save it to the local files
   if (image.size) {
     const buffer = await image.arrayBuffer();
     const imageName = `${Date.now()}-${image.name}`;
@@ -37,14 +38,15 @@ export const action: ActionFunction = async ({ request }) => {
     await writeFile(imagePath, Buffer.from(buffer));
   }
 
+  // check if a document is uploaded and save it to the local files
   if (doc.size) {
     const buffer = await doc.arrayBuffer();
     const docName = `${Date.now()}-${doc.name}`;
     docPath = path.join('./uploads/docs/', docName);
-
     await writeFile(docPath, Buffer.from(buffer));
   }
 
+  // configure db columns depends on the availablity of image and document
   const columns = [
     'full_name',
     'email',
@@ -82,6 +84,7 @@ export const action: ActionFunction = async ({ request }) => {
       .join(', ')} WHERE id = ?`,
     [...values, id]
   );
+  // ==================================
 
   return redirect('/employees');
 };
@@ -97,8 +100,7 @@ export async function loader({ params }: any) {
 export default function EmployeePage() {
   const { employee } = useLoaderData();
   const { employeeId } = useParams();
-  console.log(employee);
-  console.log(employeeId);
+
   return (
     <div>
       <Header />

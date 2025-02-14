@@ -20,12 +20,10 @@ export const action: ActionFunction = async ({ request }) => {
   const image = formData.get('image') as File;
   const doc = formData.get('document') as File;
 
-  console.log(image);
-  console.log(doc);
-
   let imagePath = '';
   let docPath = '';
 
+  //  to ensure that the directory exists, if not create it
   const ensureDirectoryExists = (filePath: any) => {
     const dirPath = path.dirname(filePath);
     if (!fs.existsSync(dirPath)) {
@@ -33,6 +31,7 @@ export const action: ActionFunction = async ({ request }) => {
     }
   };
 
+  // check if an image is uploaded and save it to the local files
   if (image) {
     const buffer = await image.arrayBuffer();
     const imageName = `${Date.now()}-${image.name}`;
@@ -41,6 +40,7 @@ export const action: ActionFunction = async ({ request }) => {
 
     await writeFile(imagePath, Buffer.from(buffer));
   }
+  // check if a document is uploaded and save it to the local files
 
   if (doc) {
     const buffer = await doc.arrayBuffer();
@@ -51,6 +51,7 @@ export const action: ActionFunction = async ({ request }) => {
     await writeFile(docPath, Buffer.from(buffer));
   }
 
+  // configure db columns depends on the availablity of image and document
   const db = await getDB();
   await db.run(
     'INSERT INTO employees (full_name, email, phone_number, date_of_birth, job_title, department, salary, start_date, image, document) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)',

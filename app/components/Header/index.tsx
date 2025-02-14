@@ -1,11 +1,6 @@
 import { useMatch } from 'react-router';
 
 const Header = () => {
-  const isEmployeesPage = useMatch('/employees');
-  const isTimesheetsPage = useMatch('/timesheets');
-  const isEmployeesAddPage = useMatch('/employees/new');
-  const isTimesheetsAddPage = useMatch('/timesheets/new');
-
   return (
     <header className='header flex items-center w-full shadow-lg mb-4'>
       <a href='/'>

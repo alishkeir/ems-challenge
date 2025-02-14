@@ -11,6 +11,7 @@ import type { ActionFunction } from 'react-router';
 import TimesheetForm from '~/components/TimesheetForm';
 import Header from '~/components/Header';
 
+// format the time and date to be more readable
 const formatDateTime = (dateString: any) => {
   const date = new Date(dateString);
   const year = date.getFullYear();

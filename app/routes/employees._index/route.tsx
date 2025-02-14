@@ -13,28 +13,35 @@ export async function loader() {
 export default function EmployeesPage() {
   const { employees } = useLoaderData();
 
+  //   pagination and searching eomployees
+
+  // default states
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
+  // search filtering by employee name
   const filteredEmployees = employees.filter((employee: any) =>
     employee.full_name.toLowerCase().includes(search.toLowerCase())
   );
 
-  const totalPages = Math.ceil(filteredEmployees.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredEmployees.length / itemsPerPage); // get total possible page count
+
+  // limit employees count per page
   const currentEmployees = filteredEmployees.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
+  // functions
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
     setCurrentPage(1);
   };
-
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
   };
+  //  =========================================
 
   return (
     <div>
