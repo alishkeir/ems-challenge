@@ -26,7 +26,8 @@ CREATE TABLE employees (
     department TEXT,
     salary FLOAT,
     start_date DATE,
-    end_date DATE
+    image TEXT,
+    document TEXT
     -- Rest of the fields
 );
 
