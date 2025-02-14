@@ -26,6 +26,11 @@ const TimesheetForm = ({ employees, timesheet, title }: any) => {
       return;
     }
 
+    if (new Date(start_time) > new Date(end_time)) {
+      alert('Start time must be before end time.');
+      return;
+    }
+
     if (!employee_id) {
       alert('Please select an employee.');
       return;

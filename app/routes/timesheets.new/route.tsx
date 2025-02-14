@@ -11,13 +11,25 @@ import type { ActionFunction } from 'react-router';
 import TimesheetForm from '~/components/TimesheetForm';
 import Header from '~/components/Header';
 
+const formatDateTime = (dateString: any) => {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+
+  return `${year}-${month}-${day} ${hours}:${minutes}`;
+};
+
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
 
   const title = formData.get('title');
   const employee_id = formData.get('employee_id');
-  const start_time = formData.get('start_time');
-  const end_time = formData.get('end_time');
+  const start_time = formatDateTime(formData.get('start_time'));
+  const end_time = formatDateTime(formData.get('end_time'));
 
   const db = await getDB();
   await db.run(

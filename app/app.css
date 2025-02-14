@@ -29,9 +29,9 @@ form div input {
   border: 1px solid black;
 }
 
-form div input:focus {
+form input:focus {
   outline: none;
-  box-shadow: 0px 0px 1px 1px red;
+  box-shadow: 0px 0px 1px 1px black;
 }
 
 button[disabled] {
