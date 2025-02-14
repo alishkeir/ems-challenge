@@ -2,6 +2,7 @@ import { useLoaderData } from 'react-router';
 import Header from '~/components/Header';
 import { getDB } from '~/db/getDB';
 import { useState } from 'react';
+import Pagination from '~/components/Pagination';
 
 export async function loader() {
   const db = await getDB();
@@ -75,7 +76,7 @@ export default function EmployeesPage() {
                 <td>{employee.department}</td>
                 <td>
                   <a
-                    className='flex justify-between items-center text-white bg-cyan-500 rounded-md px-[5px] py-[8px]'
+                    className='flex justify-center items-center text-white bg-cyan-500 rounded-md px-[5px] py-[8px]'
                     href={`/employees/${employee.id}`}
                   >
                     View/Edit
@@ -86,29 +87,11 @@ export default function EmployeesPage() {
           </tbody>
         </table>
 
-        <div className='pagination flex justify-center'>
-          {currentPage > 1 && (
-            <button
-              onClick={() => handlePageChange(currentPage - 1)}
-              className='px-4 py-2 bg-blue-500 text-white rounded-md'
-            >
-              Previous
-            </button>
-          )}
-
-          <span className='px-4 py-2'>
-            Page {currentPage} of {totalPages}
-          </span>
-
-          {currentPage < totalPages && (
-            <button
-              onClick={() => handlePageChange(currentPage + 1)}
-              className='px-4 py-2 bg-blue-500 text-white rounded-md'
-            >
-              Next
-            </button>
-          )}
-        </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          handlePageChange={handlePageChange}
+        />
       </div>
     </div>
   );
