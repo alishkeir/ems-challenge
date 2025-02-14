@@ -29,14 +29,17 @@ export async function loader() {
 export default function TimesheetsPage() {
   const { timesheetsAndEmployees, employees } = useLoaderData();
 
+  const sortedEmployees = employees.sort((a: any, b: any) => {
+    return a.full_name.localeCompare(b.full_name);
+  });
+
   console.log(employees);
 
   const [search, setSearch] = useState('');
-  const [selectedEmployee, setSelectedEmployee] = useState<string>(''); // For selected employee
+  const [selectedEmployee, setSelectedEmployee] = useState<string>('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
-  // Filter based on search and selected employee
   const filteredTimesheets = timesheetsAndEmployees.filter((timesheet: any) => {
     const matchesSearch = timesheet.title
       .toLowerCase()
@@ -64,7 +67,7 @@ export default function TimesheetsPage() {
 
   const handleEmployeeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedEmployee(e.target.value);
-    setCurrentPage(1); // Reset to first page when employee changes
+    setCurrentPage(1);
   };
 
   console.log(timesheetsAndEmployees);
@@ -123,7 +126,7 @@ export default function TimesheetsPage() {
         </button>
       </div>
       <a
-        href='/employees/new'
+        href='/timesheets/new'
         className='flex justify-between items-center text-white bg-cyan-500 rounded-md px-[5px] py-[8px] w-fit mb-3 mx-auto'
       >
         Create New Timesheet
@@ -144,7 +147,7 @@ export default function TimesheetsPage() {
               className='px-4 py-2 border rounded-md mt-2'
             >
               <option value=''>Select Employee</option>
-              {employees.map((employee: any) => (
+              {sortedEmployees.map((employee: any) => (
                 <option key={employee.id} value={employee.id}>
                   {employee.full_name}
                 </option>
