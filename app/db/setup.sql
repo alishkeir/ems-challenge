@@ -35,6 +35,7 @@ CREATE TABLE employees (
 CREATE TABLE timesheets (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     -- Rest of the fields
+    title TEXT NOT NULL,
     start_time DATETIME NOT NULL,
     end_time DATETIME NOT NULL,
     employee_id INTEGER NOT NULL,
